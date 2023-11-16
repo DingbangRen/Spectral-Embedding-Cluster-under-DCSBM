@@ -759,10 +759,6 @@ plot(Theta[,2],Theta[,3],col = newindex_mcmc[[iterations]],main = paste('S-B res
 
 
 
-library(xtable)
-library(coda)
-#traceplot(as.mcmc(clusterweight_mcmc))
-
 ####################### No-Gaps Sampler for Projected Normal mixtures
 # 改动
 ## 尝试用K means来做cluster initialization
@@ -918,23 +914,6 @@ inicluster_karchermeans <- function(X,ind){
   
 }
 
-
-## 不用w_h 而改用CRP的方式 这就要求要考虑new cluster
-## 需要 no gap算法 (因为无法计算出 
-## \int f_\theta (y_i) G_0(d\theta) 
-## 故无法得知new cluster的likelihood)
-## 于是需要用no gap 且 用G_0 sampling new cluster mean
-
-## 问题在于 如果是new cluster 那么每次 {s_i=j}
-## 都需要生成一串新的参数 然后再计算 likelihood
-ind=index_nogap
-r=rnew_nogap
-Theta=Theta
-mu=mulistnew_nogap
-Sigmastar=Sigmastarlistnew_nogap
-gamma=gammalistnew_nogap
-M_nogap = 1
-i=56
 
 indexupdate_nogap <- function(ind,r,Theta,mu,Sigmastar,gamma,M_nogap = 1,
                               potential_gamma=rmvnorm(1,mean = rep(0,k-1),diag(rep(100,k-1))),
@@ -1110,28 +1089,28 @@ barplot(table(index_nogap_mcmc[[iterations]])%>%sort(),
 
 
 par(mfrow = c(2,2))
-plot(X[,1],X[,2],col = index_nogap_mcmc[[iterations]],main=paste('No-Gap sampler',', iter = ',as.character(iterations)))
-plot(X[,2],X[,3],col = index_nogap_mcmc[[iterations]],main=paste('No-Gap sampler',', iter = ',as.character(iterations)))
+plot(X[,1],X[,2],col = index_nogap_mcmc[[iterations]],main=paste('No-Gaps sampler',', iter = ',as.character(iterations)))
+plot(X[,2],X[,3],col = index_nogap_mcmc[[iterations]],main=paste('No-Gaps sampler',', iter = ',as.character(iterations)))
 plot(X[,3],X[,4],col = index_nogap_mcmc[[iterations]],main='')
 plot(X[,4],X[,5],col = index_nogap_mcmc[[iterations]],main='')
 
 
 par(mfrow = c(3,1))
-plot(Theta[,1],Theta[,2],col = index_nogap_mcmc[[iterations]],main=paste('No-Gap sampler',', iter = ',as.character(iterations)))
+plot(Theta[,1],Theta[,2],col = index_nogap_mcmc[[iterations]],main=paste('No-Gaps sampler',', iter = ',as.character(iterations)))
 plot(Theta[,2],Theta[,3],col = index_nogap_mcmc[[iterations]],main='')
 plot(Theta[,3],Theta[,4],col = index_nogap_mcmc[[iterations]],main='')
 
 
 
 par(mfrow = c(2,2))
-plot(X[,1],X[,2],col = index_nogap_mcmc[[1]],main=paste('No-Gap sampler',', iter = ',as.character(1)))
-plot(X[,2],X[,3],col = index_nogap_mcmc[[1]],main=paste('No-Gap sampler',', iter = ',as.character(1)))
+plot(X[,1],X[,2],col = index_nogap_mcmc[[1]],main=paste('No-Gaps sampler',', iter = ',as.character(1)))
+plot(X[,2],X[,3],col = index_nogap_mcmc[[1]],main=paste('No-Gaps sampler',', iter = ',as.character(1)))
 plot(X[,3],X[,4],col = index_nogap_mcmc[[1]],main='')
 plot(X[,4],X[,5],col = index_nogap_mcmc[[1]],main='')
 
 
 par(mfrow = c(3,1))
-plot(Theta[,1],Theta[,2],col = index_nogap_mcmc[[1]],main=paste('No-Gap sampler',', iter = ',as.character(iterations)))
+plot(Theta[,1],Theta[,2],col = index_nogap_mcmc[[1]],main=paste('No-Gaps sampler',', iter = ',as.character(1)))
 plot(Theta[,2],Theta[,3],col = index_nogap_mcmc[[1]],main='')
 plot(Theta[,3],Theta[,4],col = index_nogap_mcmc[[1]],main='')
 
