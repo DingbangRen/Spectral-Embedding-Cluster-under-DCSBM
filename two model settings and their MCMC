@@ -1042,7 +1042,7 @@ rnew_nogap_mcmc[[2000]] -> rnew_nogap
 ## 注意
 iterations <- 8000
 ## Warning can be ignored
-for(itr in 8000:iterations){
+for(itr in 1:iterations){
   ## mu的生成有问题 可能应该是行向量
   
   rnew_nogap<-MCMCr_mh(newindex=index_nogap,r=rnew_nogap,Theta = Theta,mulist = mulistnew_nogap,
